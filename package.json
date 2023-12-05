@@ -8,6 +8,7 @@
   },
   "author": "Camden Voigt",
   "license": "ISC",
+  "type": "commonjs",
   "bin": {
     "remove_dups": "./bin/index.js"
   }
