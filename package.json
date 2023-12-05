@@ -1,0 +1,14 @@
+{
+  "name": "remove_dups",
+  "version": "1.0.0",
+  "description": "Remove duplicate entries in JSON file",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Camden Voigt",
+  "license": "ISC",
+  "bin": {
+    "remove_dups": "./bin/index.js"
+  }
+}
