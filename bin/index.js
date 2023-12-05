@@ -2,10 +2,14 @@
 
 let ProcessArgs = require("./ProcessArgs");
 let RemoveDuplicates = require("./RemoveDuplicates");
+let Logger = require("./Logger");
 
 let options = ProcessArgs.process();
+Logger.init(options.logFilePath);
 
 // more generic than .leads ideally
 let cleanedEntries = RemoveDuplicates.removeDuplicates(options.data.leads);
 
-console.log(cleanedEntries);
+Logger.log(JSON.stringify({
+    leads: cleanedEntries
+}));
