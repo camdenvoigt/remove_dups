@@ -67,7 +67,8 @@ function showHelp() {
         -v, --verbose           Show all logs in console, does not work when log file is specified
         -l, --logFilePath       Realitive path to log file. Will log verbosly to file
         -o, --outputFilePath    Realative path to output file.
-    `)
+    `);
+    process.exit(0);
 }
 
 /*
@@ -76,7 +77,6 @@ function showHelp() {
 function process_args() {
     if (isHelp()) {
         showHelp();
-        process.exit(0);
     }
 
     return {

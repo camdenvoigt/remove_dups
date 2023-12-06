@@ -12,27 +12,28 @@ function compareEntries(entry1, entry2) {
 }
 
 function removeDuplicateDataWithKey(data, key) {
-    let entries = {};
+    let entries = new Map();
     Logger.logRemovingKey(key);
 
     data.reduce((entries, currentEntry) => {
         let entryId = currentEntry[key];
 
-        if (!entries.hasOwnProperty(entryId)) {
-            entries[entryId] = currentEntry;
+        if (!entries.has(entryId)) {
+            entries.set(entryId, currentEntry);
             return entries;
         } 
 
-        let compareEntriesVal = compareEntries(currentEntry, entries[entryId])
+        let oldEntry = entries.get(entryId);
+        let compareEntriesVal = compareEntries(currentEntry, oldEntry);
         if (compareEntriesVal >= 0) {
-            Logger.logReplacingEntry(entries[entryId], currentEntry, key);
-            entries[entryId] = currentEntry
+            Logger.logReplacingEntry(oldEntry, currentEntry, key);
+            entries.set(entryId, currentEntry);
         }
 
         return entries;
     }, entries);
 
-    return Object.values(entries);
+    return [...entries.values()];
 }
 
 function removeDuplicates(data) {
