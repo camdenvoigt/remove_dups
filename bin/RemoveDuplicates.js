@@ -1,12 +1,15 @@
 const Logger = require("./Logger");
+const Util = require("./Util");
 
-const ID_KEY_VALUE = "_id";
-const EMAIL_KEY_VALUE = "email";
-const DATE_KEY_VALUE = "entryDate";
+let DATE_KEY = "entryDate";
 
 function compareEntries(entry1, entry2) {
-    let date1 = new Date(entry1[DATE_KEY_VALUE]);
-    let date2 = new Date(entry2[DATE_KEY_VALUE]);
+    if (!entry1.hasOwnProperty(DATE_KEY) || !entry2.hasOwnProperty(DATE_KEY)) {
+        Util.handleError("Entries do not have specified date key");
+    }
+
+    let date1 = new Date(entry1[DATE_KEY]);
+    let date2 = new Date(entry2[DATE_KEY]);
 
     return date1 - date2;
 }
@@ -16,6 +19,10 @@ function removeDuplicateDataWithKey(data, key) {
     Logger.logRemovingKey(key);
 
     data.reduce((entries, currentEntry) => {
+        if (!currentEntry.hasOwnProperty(key)) {
+            Util.handleError(`Entries do not have specified key - ${key}`);
+        }
+
         let entryId = currentEntry[key];
 
         if (!entries.has(entryId)) {
@@ -36,9 +43,15 @@ function removeDuplicateDataWithKey(data, key) {
     return [...entries.values()];
 }
 
-function removeDuplicates(data) {
-    let reducedData = removeDuplicateDataWithKey(data, ID_KEY_VALUE);
-    return removeDuplicateDataWithKey(reducedData, EMAIL_KEY_VALUE);
+function removeDuplicates(data, keys) {
+    DATE_KEY = keys.dateKey;
+
+    let reducedData = data;
+    keys.uniqueKeys.forEach((key) => {
+        reducedData = removeDuplicateDataWithKey(reducedData, key);
+    });
+
+    return reducedData;
 }
 
 exports.removeDuplicates = removeDuplicates;

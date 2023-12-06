@@ -5,16 +5,17 @@ const fs = require("fs");
 const ProcessArgs = require("./ProcessArgs");
 const RemoveDuplicates = require("./RemoveDuplicates");
 const Logger = require("./Logger");
+const Util = require("./Util");
+
 
 let options = ProcessArgs.process();
 Logger.init(options.logFilePath, options.isVerbose);
 
-// more generic than .leads ideally
-let cleanedEntries = RemoveDuplicates.removeDuplicates(options.data.leads);
+let data = Util.getData(options);
 
-let output = JSON.stringify({
-    leads: cleanedEntries
-});
+let cleanedEntries = RemoveDuplicates.removeDuplicates(data, options.keys);
+
+let output = Util.constructOutput(options, cleanedEntries);
 
 if (options.outputFilePath) {
     fs.writeFileSync(options.outputFilePath, output);

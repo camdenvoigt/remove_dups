@@ -1,0 +1,15 @@
+{
+    "logFilePath": "../log.txt",
+    "outputFilePath": "../output.txt",
+    "keys": {
+        "dateKey": "entryDate",
+        "uniqueKeys": [
+            "_id",
+            "email"
+        ],
+        "jsonPath": [
+            "test",
+            "leads"
+        ]
+    }
+}

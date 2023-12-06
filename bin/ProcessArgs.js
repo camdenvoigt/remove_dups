@@ -1,5 +1,7 @@
 const fs = require("fs");
-const path = require("node:path")
+const path = require("node:path");
+
+const Util = require("./Util");
 
 function getJsonData() {
     let jsonFile = process.argv[2];
@@ -7,9 +9,7 @@ function getJsonData() {
     try {
         jsonData = JSON.parse(fs.readFileSync(jsonFile));
     } catch (e) {
-        let error = new Error("Problem reading input file");
-        console.error(error);
-        process.exit(1);
+        Util.handleError("Problem reading input file");
     }
 
     return jsonData;
@@ -22,12 +22,12 @@ function getOutputFilePath() {
         try {
             outputFilePath = path.normalize(process.argv[index]);
         } catch (e) {
-            let error = new Error("Invalid output file path provided");
-            console.error(error);
-            process.exit(1);
+            Util.handleError("Invalid output file path provided");
         }
         return outputFilePath;
     }
+
+    return undefined;
 }
 
 function getLogFilePath() {
@@ -37,9 +37,7 @@ function getLogFilePath() {
         try {
             logFilePath = path.normalize(process.argv[index]);
         } catch (e) {
-            let error = new Error("Invalid log file path provided");
-            console.error(error);
-            process.exit(1);
+            Util.handleError("Invalid log file path provided");
         }
         return logFilePath;
     }
@@ -50,8 +48,30 @@ function getIsVerbose() {
     return process.argv.includes("-v");
 }
 
+function getConfig() {
+    if (process.argv.includes("-c")) {
+        let index = process.argv.indexOf("-c") + 1;
+        let configFilePath = null;
+        try {
+            configFilePath = path.normalize(process.argv[index]);
+        } catch (e) {
+            Util.handleError("Invalid config file path provided");
+        }
+
+        let configData = null;
+        try {
+            configData = JSON.parse(fs.readFileSync(configFilePath));
+        } catch (e) {
+            Util.handleError("Problem reading config file");
+        }
+
+        return configData;
+    }
+    return {};
+}
+
 function isHelp() {
-    return process.argv.includes("-h") || process.argv.includes("--help");
+    return process.argv.includes("-h");
 }
 
 function showHelp() {
@@ -63,10 +83,11 @@ function showHelp() {
         remove_dups -h | --help
 
     Options:
-        -h, --help              Show this information
-        -v, --verbose           Show all logs in console, does not work when log file is specified
-        -l, --logFilePath       Realitive path to log file. Will log verbosly to file
-        -o, --outputFilePath    Realative path to output file.
+        -h  Show this information
+        -v  Show all logs in console, does not work when log file is specified
+        -l  Relitive path to log file. Will log verbosly to file
+        -o  Relative path to output file.
+        -c  Relative path to config file that can specify all options and keys
     `);
     process.exit(0);
 }
@@ -79,7 +100,10 @@ function process_args() {
         showHelp();
     }
 
+    let options = getConfig();
+
     return {
+        ...options,
         data: getJsonData(),
         logFilePath: getLogFilePath(),
         outputFilePath: getOutputFilePath(),

@@ -3,13 +3,14 @@ remove_dups reads a json file and can remove entries with duplicate keys keeping
 Usage:
     ```
         remove_dups <input_file>
-        remove_dups -h | --help
+        remove_dups -h
     ```
 
 Options:
 ```
-    -h, --help              Show this information
-    -v, --verbose           Show all logs in console, does not work when log file is specified
-    -l, --logFilePath       Realitive path to log file. Will log verbosly to file
-    -o, --outputFilePath    Realative path to output file.
+    -h  Show this information
+    -v  Show all logs in console, does not work when log file is specified
+    -l  Realitive path to log file. Will log verbosly to file
+    -o  Realative path to output file.
+    -c  Relative path to config file that can specify all options and keys
 ```
