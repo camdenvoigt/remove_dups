@@ -100,14 +100,14 @@ function process_args() {
         showHelp();
     }
 
-    let options = getConfig();
+    let config = getConfig();
 
     return {
-        ...options,
         data: getJsonData(),
-        logFilePath: getLogFilePath(),
-        outputFilePath: getOutputFilePath(),
-        isVerbose: getIsVerbose(),
+        logFilePath: getLogFilePath() || config.logFilePath,
+        outputFilePath: getOutputFilePath() || config.outputFilePath,
+        isVerbose: getIsVerbose() || config.isVerbose,
+        keys: config.keys,
     }
 }
 
