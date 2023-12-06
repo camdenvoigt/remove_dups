@@ -1,29 +1,28 @@
-{"test": {
-    "leads":[
-        {
-            "_id": "jkj238238jdsnfsj23",
-            "email": "foo@bar.com",
-            "firstName":  "John",
-            "lastName": "Smith",
-            "address": "123 Street St",
-            "entryDate": "2014-05-07T17:20:10+00:00"
-        },
-        {
-            "_id": "jkj238238jdsnfsj23",
-            "email": "foot@bar.com",
-            "firstName":  "John",
-            "lastName": "Smith",
-            "address": "123 Street St",
-            "entryDate": "2014-05-07T17:20:20+00:00"
-        },
-        {
-            "_id": "jkj238238jdsnfsj23",
-            "email": "fool@bar.com",
-            "firstName":  "John",
-            "lastName": "Smith",
-            "address": "123 Street St",
-            "entryDate": "2014-05-07T17:20:20+00:00"
-        }
-        ]
+{
+"leads":[
+    {
+        "_id": "jkj238238jdsnfsj23",
+        "email": "foo@bar.com",
+        "firstName":  "John",
+        "lastName": "Smith",
+        "address": "123 Street St",
+        "entryDate": "2014-05-07T17:20:10+00:00"
+    },
+    {
+        "_id": "jkj238238jdsnfsj23",
+        "email": "foot@bar.com",
+        "firstName":  "John",
+        "lastName": "Smith",
+        "address": "123 Street St",
+        "entryDate": "2014-05-07T17:20:20+00:00"
+    },
+    {
+        "_id": "jkj238238jdsnfsj23",
+        "email": "fool@bar.com",
+        "firstName":  "John",
+        "lastName": "Smith",
+        "address": "123 Street St",
+        "entryDate": "2014-05-07T17:20:20+00:00"
     }
+    ]
 }

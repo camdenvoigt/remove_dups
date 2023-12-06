@@ -9,6 +9,8 @@ const Util = require("./Util");
 
 
 let options = ProcessArgs.process();
+console.log(options);
+
 Logger.init(options.logFilePath, options.isVerbose);
 
 let data = Util.getData(options);
