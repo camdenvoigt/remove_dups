@@ -3,7 +3,31 @@ const path = require("node:path")
 
 function getJsonData() {
     let jsonFile = process.argv[2];
-    return JSON.parse(fs.readFileSync(jsonFile));
+    let jsonData = null;
+    try {
+        jsonData = JSON.parse(fs.readFileSync(jsonFile));
+    } catch (e) {
+        let error = new Error("Problem reading input file");
+        console.error(error);
+        process.exit(1);
+    }
+
+    return jsonData;
+}
+
+function getOutputFilePath() {
+    if (process.argv.includes("-o")) {
+        let index = process.argv.indexOf("-o") + 1;
+        let outputFilePath = null;
+        try {
+            outputFilePath = path.normalize(process.argv[index]);
+        } catch (e) {
+            let error = new Error("Invalid output file path provided");
+            console.error(error);
+            process.exit(1);
+        }
+        return outputFilePath;
+    }
 }
 
 function getLogFilePath() {
@@ -22,6 +46,10 @@ function getLogFilePath() {
     return null
 }
 
+function getIsVerbose() {
+    return process.argv.includes("-v");
+}
+
 /*
     Reads process args and returns options object containing specified options from command line
 */
@@ -29,6 +57,8 @@ function process_args() {
     return {
         data: getJsonData(),
         logFilePath: getLogFilePath(),
+        outputFilePath: getOutputFilePath(),
+        isVerbose: getIsVerbose(),
     }
 }
 

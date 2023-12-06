@@ -1,8 +1,9 @@
-let fs = require("fs");
+const fs = require("fs");
 
 let logger = null;
+let isVerbose = false;
 
-function init(logFilePath) {
+function init(logFilePath, verbose) {
     if (logFilePath) {
         try {
             logger = fs.createWriteStream(logFilePath, {
@@ -12,6 +13,8 @@ function init(logFilePath) {
             console.log("Invalid log file path");
         }
     }
+
+    isVerbose = verbose;
 }
 
 function writeLine(message) {
@@ -24,7 +27,9 @@ function log(message) {
         return;
     }
 
-    console.log(message);
+    if (isVerbose) {
+        console.log(message);
+    }
 }
 
 function logRemovingKey(key) {
