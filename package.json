@@ -4,12 +4,15 @@
   "description": "Remove duplicate entries in JSON file",
   "main": "bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Camden Voigt",
   "license": "ISC",
   "type": "commonjs",
   "bin": {
     "remove_dups": "./bin/index.js"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

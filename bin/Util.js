@@ -1,8 +1,12 @@
 function getData(options) {
     let data = options.data;
 
-    for (let i = 0; i < options.keys.jsonPath.length; i++) {
-        data = data[options.keys.jsonPath[i]];
+    try {
+        for (let i = 0; i < options.keys.jsonPath.length; i++) {
+            data = data[options.keys.jsonPath[i]];
+        }
+    } catch(e) {
+        handleError("json path does not match json object");
     }
 
     return data;
@@ -10,13 +14,19 @@ function getData(options) {
 
 function constructOutput(options, cleanedEntries) {
     let output = options.data;
-    for (let i = 0; i < options.keys.jsonPath.length; i++) {
-        if (i === options.keys.jsonPath.length - 1) {
-            output[options.keys.jsonPath[i]] = cleanedEntries;
-        } else {
-            output = options.data[options.keys.jsonPath[i]];
+
+    try {
+        for (let i = 0; i < options.keys.jsonPath.length; i++) {
+            if (i === options.keys.jsonPath.length - 1) {
+                output[options.keys.jsonPath[i]] = cleanedEntries;
+            } else {
+                output = output[options.keys.jsonPath[i]];
+            }
         }
+    } catch(e) {
+        handleError("json path does not match json object");
     }
+
     return JSON.stringify(options.data);
 }
 

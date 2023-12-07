@@ -30,10 +30,10 @@ function removeDuplicateDataWithKey(data, key) {
             return entries;
         } 
 
-        let oldEntry = entries.get(entryId);
-        let compareEntriesVal = compareEntries(currentEntry, oldEntry);
+        let savedEntry = entries.get(entryId);
+        let compareEntriesVal = compareEntries(currentEntry, savedEntry);
         if (compareEntriesVal >= 0) {
-            Logger.logReplacingEntry(oldEntry, currentEntry, key);
+            Logger.logReplacingEntry(savedEntry, currentEntry, key);
             entries.set(entryId, currentEntry);
         }
 
@@ -47,11 +47,14 @@ function removeDuplicates(data, keys) {
     DATE_KEY = keys.dateKey;
 
     let reducedData = data;
-    keys.uniqueKeys.forEach((key) => {
+    for (let i = 0; i < keys.uniqueKeys.length; i++) {
+        let key = keys.uniqueKeys[i];
         reducedData = removeDuplicateDataWithKey(reducedData, key);
-    });
+    }
 
     return reducedData;
 }
 
 exports.removeDuplicates = removeDuplicates;
+exports.compareEntries = compareEntries;
+exports.removeDuplicateDataWithKey = removeDuplicateDataWithKey;
