@@ -191,3 +191,5 @@ function process_args() {
 }
 
 exports.process = process_args;
+exports.getJsonData = getJsonData;
+exports.getDateKey = getDateKey;
