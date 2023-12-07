@@ -40,7 +40,17 @@ function logReplacingEntry(oldEntry, newEntry, key) {
     log(`Replacing ${JSON.stringify(oldEntry)} with ${JSON.stringify(newEntry)} because of duplicate value in ${key}`)
 }
 
+function logFullEntries(entries) {
+    log(`Removing duplicates from ${JSON.stringify(entries)}`);
+}
+
+function logReducedEntries(entries) {
+    log(`Entries with removed duplicates ${JSON.stringify(entries)}`)
+}
+
 exports.init = init;
 exports.log = log;
 exports.logRemovingKey = logRemovingKey;
 exports.logReplacingEntry = logReplacingEntry;
+exports.logFullEntries = logFullEntries;
+exports.logReducedEntries = logReducedEntries;

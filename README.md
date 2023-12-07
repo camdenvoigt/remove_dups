@@ -40,3 +40,13 @@ remove_dups reads a json file and can remove entries with duplicate keys keeping
             ]
         }
     }
+
+### Example Usage
+
+    Get output in stdout
+    remove_dups example/leads.json
+
+    Get output with full logging
+    remove_dups example/leads.json -v
+
+

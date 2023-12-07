@@ -9,13 +9,15 @@ const Util = require("./Util");
 
 
 let options = ProcessArgs.process();
-console.log(options);
-
 Logger.init(options.logFilePath, options.isVerbose);
 
 let data = Util.getData(options);
 
+Logger.logFullEntries(data);
+
 let cleanedEntries = RemoveDuplicates.removeDuplicates(data, options.keys);
+
+Logger.logReducedEntries(cleanedEntries);
 
 let output = Util.constructOutput(options, cleanedEntries);
 
