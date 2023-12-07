@@ -68,9 +68,12 @@ function getUniqueKeys() {
         return null;
     }
 
-    console.log(uniqueKeysArg);
-
-    let uniqueKeys = JSON.parse(uniqueKeysArg);
+    let uniqueKeys;
+    try {
+        uniqueKeys = JSON.parse(uniqueKeysArg);
+    } catch(e) {
+        Util.handleError("unique keys arugment is not valid");
+    }
 
     if (!Array.isArray(uniqueKeys)) {
         Util.handleError("Unique Keys is not an array");
@@ -86,7 +89,12 @@ function getJsonPath() {
         return null;
     }
 
-    let jsonPath = JSON.parse(jsonPathArg);
+    let jsonPath;
+    try {
+        jsonPath = JSON.parse(jsonPathArg);
+    } catch(e) {
+        Util.handleError("JSON Path arugment is not valid");
+    }
 
     if (!Array.isArray(jsonPath)) {
         Util.handleError("JSON Path is not an array");
@@ -193,3 +201,8 @@ function process_args() {
 exports.process = process_args;
 exports.getJsonData = getJsonData;
 exports.getDateKey = getDateKey;
+exports.getUniqueKeys = getUniqueKeys;
+exports.getJsonPath = getJsonPath;
+exports.getOutputFilePath = getOutputFilePath;
+exports.getLogFilePath = getLogFilePath;
+exports.getConfig = getConfig;
